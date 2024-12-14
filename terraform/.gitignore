@@ -1,3 +1,8 @@
+# certs
+*.pem
+*.csr
+*.crt
+
 # Local .terraform directories
 **/.terraform/*
 
