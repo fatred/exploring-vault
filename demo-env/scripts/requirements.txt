@@ -1,0 +1,13 @@
+cffi==1.17.1
+cryptography==44.0.0
+dictdiffer==0.9.0
+grpcio==1.68.1
+mypy-extensions==1.0.0
+nornir==3.4.1
+nornir-ansible==2023.12.28
+nornir-pygnmi==0.2.0
+protobuf==5.29.2
+pycparser==2.22
+pygnmi==0.8.14
+ruamel.yaml==0.18.6
+ruamel.yaml.clib==0.2.12

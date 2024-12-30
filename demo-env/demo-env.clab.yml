@@ -1,0 +1,29 @@
+name: demo-env
+prefix: null
+mgmt: {}
+settings: null
+topology:
+  kinds:
+    nokia_srlinux:
+      image: ghcr.io/nokia/srlinux:23.10.6
+  nodes:
+    spine1:
+      kind: nokia_srlinux
+      type: ixrd3l
+      group: spine
+    leaf1:
+      kind: nokia_srlinux
+      type: ixrd2l
+      group: leaf
+    leaf2:
+      kind: nokia_srlinux
+      type: ixrd2l
+      group: leaf
+  links:
+  - endpoints:
+    - spine1:e1-1
+    - leaf1:e1-49
+  - endpoints:
+    - spine1:e1-2
+    - leaf2:e1-49
+debug: false
