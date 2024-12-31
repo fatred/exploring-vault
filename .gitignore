@@ -1,3 +1,5 @@
 demo-env/clab-demo-env
 demo-env/.demo-env.clab.yml.bak
+demo-env/nornir.log
+demo-env/ansible-inventory.yml
 demo-env/scripts/venv
