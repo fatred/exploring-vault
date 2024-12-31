@@ -1,0 +1,5 @@
+---
+inventory:
+  plugin: AnsibleInventory
+  options:
+    hostsfile: "ansible-inventory.yml"
