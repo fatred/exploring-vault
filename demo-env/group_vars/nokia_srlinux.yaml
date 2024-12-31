@@ -1,0 +1,10 @@
+#---
+#username: admin
+#password: NokiaSrl1!
+#port: 57400
+#connection_options:
+#  pygnmi:
+#    extras:
+#      path_root: "./clab-demo-env/.tls/ca/ca.pem"
+#      skip_verify: False
+#      insecure: False
