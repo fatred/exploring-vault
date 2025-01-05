@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+
+# Modules
+from pygnmi.client import gNMIclient
+
+KEY= "-----BEGIN RSA PRIVATE KEY-----\n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\n-----END RSA PRIVATE KEY-----"
+CERT = "-----BEGIN CERTIFICATE-----\nMIIFlzCCA3+gAwIBAgIUedTecis7ve0ZDSwvyGdplipLZMQwDQYJKoZIhvcNAQEL\nBQAwJjEkMCIGA1UEAxMbcHJvYmxlbW9mbmV0d29yay1Jc3N1aW5nLUcxMB4XDTI1\nMDEwMzA0MDIyMVoXDTI1MDEwNDA0MDI0NVowNDEyMDAGA1UEAxMpY2xhYi1kZW1v\nLWVudi1zcGluZTEucHJvYmxlbW9mbmV0d29yay5jb20wggIiMA0GCSqGSIb3DQEB\nAQUAA4ICDwAwggIKAoICAQCj0/NjoOlBOJek9mIHaC0ai/niWn2JGZqmXKX7Gwt2\nTHp7tnYCVsm+Qbd/U1mqBUyHTq2mh62xmonzVTn5voYv6OkzCW9nCwN06cg305Rz\n5FS6jQWQpUMt5HJ/y1EzkkXcJsuma4Nj5bIxlj2teqTHFkr/IjOks6VEbxw+Alvv\nq1hfw0YcsG/YxeEzLTol2CxQFQmw6cPd2wAIWNOVJ99Fsf0omRGnX0BdS93L5Vss\nG3IP1/42wseFDjoCa68JkwYM1lY6aa5oRZO5xARvWlfVRlzWUYEt3CiaHIKNQAXX\nckMDNCx7EgIQFWqgg5E1cxLeJqaTAXx/y4Gry8NZj4Doq81+r8jpm7KjJehf3NeV\n6UiEzxkHdqO5CcCgj6aq/swqwVnsHetVvEi3FiEDWn0+IDVWILJxNNfp1os2qH1d\nuMRgwPWJFbtyuxUkd2TPVYfeLm/snALGcsOdo38IDuRBeleb5Q8ggpAMEWiEb0vC\nC67AZsclJ12dlwWeG4mlnDbvSxgHZQkdgFLkp3ngcMLSjSLvFQGQdrQP4c8W5GmV\n2aSrEGdfY30HxyqVCM3RPtT6Reruau9YSoPTzkEoXCQwK6hhBLD2U0YSXZgp1tHf\nELEcLvY7PdTnzooAazwB3kK0ndhg1nE0HcyqLsYCb85tCG3CFxmcs4wLwATqM8lk\nxwIDAQABo4GuMIGrMA4GA1UdDwEB/wQEAwIDqDAdBgNVHSUEFjAUBggrBgEFBQcD\nAQYIKwYBBQUHAwIwHQYDVR0OBBYEFKj49EGIGePQHmS28IanI9hYEAK1MB8GA1Ud\nIwQYMBaAFOVF8XtoBeYBSj75jJRTY/qPqyAjMDoGA1UdEQQzMDGCKWNsYWItZGVt\nby1lbnYtc3BpbmUxLnByb2JsZW1vZm5ldHdvcmsuY29thwSsFBQCMA0GCSqGSIb3\nDQEBCwUAA4ICAQARlKd/1ZFoHkrZ4WKSsuyAiv5FA5GN7L7l+KiJ5Ka49ZUiZSCA\nrV1VPSI6GOGtyDALzCkIm2wjenFXUy5lJD6N/o2UlPpsGJfx10EriRhP4o/FrVBQ\nMB2L2LsXVRbZuGG58L9jWzvBsvplswGMcsro1XumfIxq7/N1jPDWBcjkmeUY8YmA\nXw6EZtSA4KOQlbctdhjwmVn/kc869aZVXrDQpdT6wnHHK31BfdKJMLIbVZRcEx1G\ntwKTruqjvn/ZuBWYM5YzQCQm6L0+BV3NHPt8Hmq53jueuuU0Z0qoFogdxm5PUX8B\n0wz7RrIS86OJf2hv4j9czCw7e7S7cEW9R2LxFwkIvTWqP2vAqbYI40kjQfsO0mnB\nPHnXflYfm/U/cayjwRWsX7/x0Ha4IIPmWnkCp82jhn/256CEDGu+SHjxxeoDk5WN\nqbeJTHPNUueP4k3FdDERfDTFvszQVSggn9KBdsrv8tCWQbJEtOURsZ+Z+Kiu+3ql\n/6Subl4pIzsCv3OPYR7hJ7g4n0wAKOUWGfej/BvCo3t0hdpJIkhBmSvWX7IpyCnE\nRn8s9oaDN/YKJpqRfTEf5BdyKxaXBneZGm4tOr+bWGTakc9fG83Y+iVh4Sd/2tx/\npYSXKoS5IiCiJJp1e8mVeIYveE+jtvfvS25gFVA4Tkr0rrPhz45yYgRVcw==\n-----END CERTIFICATE-----"
+
+host = ('172.20.20.2', '57400')
+set_config = [
+    (
+        "system", {
+            "tls": {
+                "server-profile": [
+                    {
+                        "name": "vault-profile",
+                        "key": f"{KEY}",
+                        "certificate": f"{CERT}",
+                        "authenticate-client": False
+                    }
+                ]
+            }
+        }
+    )
+]
+
+
+if __name__ == '__main__':
+    with gNMIclient(target=host, username='admin', password='NokiaSrl1!', path_root='clab-demo-env/.tls/ca/ca.pem') as gc:
+        result = gc.set(update=set_config)
+        print(result)
+
+
+        
+
