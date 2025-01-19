@@ -1,4 +1,4 @@
-#!/usr/bin/env
+#!/usr/bin/env python3
 """
 Author: John Howard <fatred@gmail.com>
 
@@ -94,13 +94,10 @@ if __name__ == "__main__":
     # parse args.
     #  options:
     #    role: initiator or responder.
-    print("hi")
     parser = argparse.ArgumentParser()
-    # role_group = parser.add_mutually_exclusive_group(required=True)
-    # role_group.add_argument('--initiator', action='store_true')
-    # role_group.add_argument('--responder', action='store_true')
-    parser.add_argument("--responder", action="store_true")
-    parser.add_argument("--initiator", action="store_true")
+    role_group = parser.add_mutually_exclusive_group(required=True)
+    role_group.add_argument('--initiator', action='store_true')
+    role_group.add_argument('--responder', action='store_true')
     args = parser.parse_args()
     if args.responder:
         role = "responder"
