@@ -69,23 +69,27 @@ async def main(role: str):
     try:
         async for msg in sub.messages:
             if role == "responder":
-                # announce inbound message
+                # we are the responder, and we just got a message from the initator
+                # extract the message
                 content = msg.data.decode()
+                # announce message content
                 print(f"Received a message on '{msg.subject}': {content}")
-                # parrot it back
+                # announce the reply and queue
                 print(f"Parroting it back to {pick_transmit_queue(role)}")
+                # encode our response to bytes
                 reply = bytes(f"i saw {content}", 'utf-8')
+                # push message 
                 await nc.publish(pick_transmit_queue(role), reply)
+                # we only want one so time to cleanup
                 await sub.unsubscribe()
             else: 
+                # we are the initiator, waiting for the parrot response.
                 print(f"Received a message on '{msg.subject} {msg.reply}': {msg.data.decode()}")
+                # we only want one so time to cleanup
                 await sub.unsubscribe()
     except Exception as e:
+        # something broke - report what.
         print(e)
-
-    # if inbound worker, wait for a message on the TX queue, reply with
-    #   content on reciept and then end async.
-    # nothing to do here, we already subscribed to the queue and the handler
 
     # Terminate connection to NATS.
     await nc.drain()
