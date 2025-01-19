@@ -1,0 +1,9 @@
+certifi==2024.12.14
+charset-normalizer==3.4.1
+hvac==2.3.0
+idna==3.10
+nats-py==2.9.0
+pip-system-certs==4.0
+requests==2.32.3
+urllib3==2.3.0
+wrapt==1.17.2
