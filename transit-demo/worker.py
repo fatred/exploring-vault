@@ -20,7 +20,7 @@ NATS_TX_QUEUE: str = "transit-demo-transmit"
 NATS_RX_QUEUE: str = "transit-demo-recieve"
 
 
-async def pick_subscription_queue(role: str) -> str:
+def pick_subscription_queue(role: str) -> str:
     """Take the role name and reply the name of the queue to subscribe to.
     Subscriptions are "inbound" to that worker
 
@@ -36,7 +36,7 @@ async def pick_subscription_queue(role: str) -> str:
     return NATS_TX_QUEUE if role == "responder" else NATS_RX_QUEUE
 
 
-async def pick_transmit_queue(role: str) -> str:
+def pick_transmit_queue(role: str) -> str:
     """Take the role name and reply the name of the queue to transmit on.
     Transmissions are "outbound" to that worker
 
