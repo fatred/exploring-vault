@@ -56,35 +56,36 @@ async def main(role: str):
     # connect to NATS server.
     nc = await nats.connect(NATS_SERVER_CONNSTRING)
 
-    # setup a handler for message responses
-    async def message_handler(msg):
-        subject = msg.subject
-        data = msg.data.decode()
-        # the responder is the only one that takes "actions" when we recieve a message in the queue.
-        if role == "responder":
-            # notify we got the message
-            print(f"Received a message on '{subject}': {data}")
-            print("sending it back again...")
-            # amend the response a bit and send it back.
-            await nc.publish(pick_transmit_queue(role), f"i saw {data}")
-        else:
-            # the initiator gets the response from the responder and then just prints it.
-            print(f"Received a message on '{subject}': {data}")
-
     # subscribe to the correct queue for recieving messages async in role.
-    sub = await nc.subscribe(pick_subscription_queue(role), cb=message_handler)
+    print(f"Subscribing to {pick_subscription_queue(role)}")
+    sub = await nc.subscribe(pick_subscription_queue(role))
 
     # if outbound worker, send a message to the TX queue, wait for reply
     #   before ending async.
     if role == "initiator":
         await nc.publish(pick_transmit_queue(role), b"this is an emitted message")
 
+    # handle a message on our queue
+    try:
+        async for msg in sub.messages:
+            if role == "responder":
+                # announce inbound message
+                content = msg.data.decode()
+                print(f"Received a message on '{msg.subject}': {content}")
+                # parrot it back
+                print(f"Parroting it back to {pick_transmit_queue(role)}")
+                reply = bytes(f"i saw {content}", 'utf-8')
+                await nc.publish(pick_transmit_queue(role), reply)
+                await sub.unsubscribe()
+            else: 
+                print(f"Received a message on '{msg.subject} {msg.reply}': {msg.data.decode()}")
+                await sub.unsubscribe()
+    except Exception as e:
+        print(e)
+
     # if inbound worker, wait for a message on the TX queue, reply with
     #   content on reciept and then end async.
     # nothing to do here, we already subscribed to the queue and the handler
-
-    # Remove interest in subscription after one message.
-    await sub.unsubscribe(limit=1)
 
     # Terminate connection to NATS.
     await nc.drain()
@@ -103,7 +104,6 @@ if __name__ == "__main__":
         role = "responder"
     else:
         role = "initiator"
-    print(role)
 
     # call main.
     asyncio.run(main(role))
