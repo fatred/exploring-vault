@@ -82,7 +82,7 @@ role_netguest = _build_aaa_role_item(
 )
 
 # create final objects
-aaa_users = _build_nokia_aaa_users_model([jhoward_user])
+aaa_users = _build_nokia_aaa_users_model([jhoward_user, ubaumann_user])
 aaa_groups = _build_nokia_aaa_group_model([role_netadmin, role_netguest])
 sys_roles = _build_nokia_sys_role_model([sys_netadmin, sys_netguest])
 
