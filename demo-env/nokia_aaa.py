@@ -86,23 +86,23 @@ aaa_users = _build_nokia_aaa_users_model([jhoward_user, ubaumann_user])
 aaa_groups = _build_nokia_aaa_group_model([role_netadmin, role_netguest])
 sys_roles = _build_nokia_sys_role_model([sys_netadmin, sys_netguest])
 
-print(aaa_groups.model_dump_json(exclude_unset=True, by_alias=True))
-print(sys_roles.model_dump_json(exclude_unset=True, by_alias=True))
-print(aaa_users.model_dump_json(exclude_unset=True, by_alias=True))
+#print(aaa_groups.model_dump_json(exclude_unset=True, by_alias=True))
+#print(sys_roles.model_dump_json(exclude_unset=True, by_alias=True))
+#print(aaa_users.model_dump_json(exclude_unset=True, by_alias=True))
 
-# host = ("clab-demo-env-spine1", "57400")
-# set_config = [
-#     ("/", aaa_groups.model_dump_json(exclude_unset=True, by_alias=True)),
-#     ("/", sys_roles.model_dump_json(exclude_unset=True, by_alias=True)),
-#     ("/", aaa_users.model_dump_json(exclude_unset=True, by_alias=True)),
-# ]
+host = ("clab-demo-env-spine1", "57400")
+set_config = [
+    ("/", aaa_groups.model_dump_json(exclude_unset=True, by_alias=True)),
+    ("/", sys_roles.model_dump_json(exclude_unset=True, by_alias=True)),
+    ("/", aaa_users.model_dump_json(exclude_unset=True, by_alias=True)),
+]
 
-# if __name__ == "__main__":
-#     with gNMIclient(
-#         target=host,
-#         username="admin",
-#         password="NokiaSrl1!",
-#         path_root="clab-demo-env/.tls/ca/ca.pem",
-#     ) as gc:
-#         result = gc.set(update=set_config)
-#         print(result)
+if __name__ == "__main__":
+    with gNMIclient(
+        target=host,
+        username="admin",
+        password="NokiaSrl1!",
+        path_root="clab-demo-env/.tls/ca/ca.pem",
+    ) as gc:
+        result = gc.set(update=set_config)
+        print(result)
