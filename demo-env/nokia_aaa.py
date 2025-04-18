@@ -56,6 +56,7 @@ backup_read = nokia.PathRuleItem(path_reference="/", action=nokia.PathRuleAction
 
 # build sysgroups
 sys_netadmin = nokia.SysRoleItem(name="netadmin", rule=[global_write])
+sys_netguest = nokia.SysRoleItem(name="netguest", rule=[global_read])
 
 
 # build user
@@ -65,15 +66,25 @@ jhoward_user = _build_aaa_user_item(
     role="netadmin",
     ssh_key="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0e1FGLpTw4egTHzXWjRIjyL6BmZhIkE/Kwdo2Fe7wAA4MN7GBj2s/dXFQNYynI4ZyU6vIrkMXUtVjucMUy3Wft3WP5DPrmLVPlHjBmcBJgUuGlzGGiTUqPojrstUNSiT92plqEoYTttQjtaNQfMSj1OH9bp1MT9AX8V4f8nGW4nHEbge24Qwyq0KyY0hTkhJlfLoeqMqXTuVF/xJ9qE67p/odTB9DQiFeWsG1KJs6EJdaFnbnPB4E2UMw/LTry2uavgbaZX+vtORMeebXU8EUFh+ZeigFaziq1fedc1GGgwIEKLs3fQ13yT3Rr19Kgr0g0nG8u4d24tQdtBnC/E1P",
 )
+ubaumann_user = _build_aaa_user_item(
+    username="ubaumann",
+    pwdhash="$ar2$dLsMRHWeWP4=$KEXBwGuSWlygF5aUcaFK0w==",
+    role="netguest",
+    ssh_key="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKGD7rcSCgd+IsoyjqvIK/IF/fM/lsk+DGt+o8SdP6IC",
+)
 # build role
 role_netadmin = _build_aaa_role_item(
     rolename="netadmin", roletype=business.AaaRoleTypes.human_admin
 )
 
+role_netguest = _build_aaa_role_item(
+    rolename="netguest", roletype=business.AaaRoleTypes.human_guest
+)
+
 # create final objects
 aaa_users = _build_nokia_aaa_users_model([jhoward_user])
-aaa_groups = _build_nokia_aaa_group_model([role_netadmin])
-sys_roles = _build_nokia_sys_role_model([sys_netadmin])
+aaa_groups = _build_nokia_aaa_group_model([role_netadmin, role_netguest])
+sys_roles = _build_nokia_sys_role_model([sys_netadmin, sys_netguest])
 
 print(aaa_groups.model_dump_json(exclude_unset=True, by_alias=True))
 print(sys_roles.model_dump_json(exclude_unset=True, by_alias=True))
