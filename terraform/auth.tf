@@ -38,3 +38,26 @@ resource "vault_generic_endpoint" "device-deployer" {
 EOT
 }
 
+resource "vault_generic_endpoint" "jhow" {
+  path                 = "auth/${vault_auth_backend.userpass.path}/users/jhow"
+  ignore_absent_fields = true
+
+  data_json = <<EOT
+{
+  "token_policies": ["user-creds-jhow-write-vault-policy"],
+  "password": "jhow-Secure-Cred!"
+}
+EOT
+}
+
+resource "vault_generic_endpoint" "ubaumann" {
+  path                 = "auth/${vault_auth_backend.userpass.path}/users/ubaumann"
+  ignore_absent_fields = true
+
+  data_json = <<EOT
+{
+  "token_policies": ["user-creds-ubaumann-write-vault-policy"],
+  "password": "urs-Secure-Cred!"
+}
+EOT
+}
