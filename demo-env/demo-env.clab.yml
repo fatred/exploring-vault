@@ -6,8 +6,8 @@ topology:
   kinds:
     nokia_srlinux:
       image: ghcr.io/nokia/srlinux:23.10.6
-      labels:
-        ansible-no-host-var: "true"
+        #      labels:
+        #ansible-no-host-var: "true"
   nodes:
     spine1:
       kind: nokia_srlinux
