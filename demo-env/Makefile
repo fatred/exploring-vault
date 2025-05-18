@@ -15,14 +15,17 @@ deploy:
 	sudo sed -i -E 's/([[:space:]]+)(clab-demo-env-[^[:space:]]+)/\1\2 \2.problemofnetwork.com/' /etc/hosts
 #	sed -i '/linux:/!b;n;s/vars:/vars: {}/' ansible-inventory.yml
 
-preflight-tests:
-	python3 test-pygnmi-clab.py
+preflight-checks:
 	python3 query_gnmi_cert.py clab-demo-env-spine1
 	python3 query_gnmi_cert.py clab-demo-env-leaf1
 	python3 query_gnmi_cert.py clab-demo-env-leaf2
 	openssl s_client -showcerts -connect clab-demo-env-leaf1:443 2>/dev/null </dev/null | grep "Server certificate" -A2 && echo ""
 	openssl s_client -showcerts -connect clab-demo-env-leaf2:443 2>/dev/null </dev/null | grep "Server certificate" -A2 && echo ""
 	openssl s_client -showcerts -connect clab-demo-env-spine1:443 2>/dev/null </dev/null | grep "Server certificate" -A2 && echo ""
+
+preflight-tests:
+	python3 test-pygnmi-clab.py
+	python3 test-jsonrpc-clab.py
 
 trust:
 	sudo cp ../terraform/root_ca_g1.crt /usr/local/share/ca-certificates/
@@ -32,7 +35,7 @@ trust:
 issue-certs:
 	python3 issue_device_certs_nornir.py
 
-deploy-tls-profile:
+push-tls-profile:
 	python3 push_tls_profile_nornir.py
 	echo "waiting for jsonrpc to restart" && sleep 5
 	python3 apply_gnmi_tls_profile_jsonrpc.py
@@ -41,7 +44,14 @@ destroy:
 	sudo clab destroy -c
 	rm ansible-inventory.yml
 
-fetch-jsonrpc-cert:
+postflight-checks:
 	openssl s_client -showcerts -connect clab-demo-env-leaf1.problemofnetwork.com:443 2>/dev/null </dev/null | grep "Server certificate" -A2 && echo ""
 	openssl s_client -showcerts -connect clab-demo-env-leaf2.problemofnetwork.com:443 2>/dev/null </dev/null | grep "Server certificate" -A2 && echo ""
 	openssl s_client -showcerts -connect clab-demo-env-spine1.problemofnetwork.com:443 2>/dev/null </dev/null | grep "Server certificate" -A2 && echo ""
+	python3 query_gnmi_cert.py clab-demo-env-spine1.problemofnetwork.com
+	python3 query_gnmi_cert.py clab-demo-env-leaf1.problemofnetwork.com
+	python3 query_gnmi_cert.py clab-demo-env-leaf2.problemofnetwork.com
+
+postflight-tests:
+	python3 test-pygnmi-vault.py
+	python3 test-jsonrpc-vault.py
