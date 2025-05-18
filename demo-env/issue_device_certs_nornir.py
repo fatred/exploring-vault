@@ -62,6 +62,14 @@ def generate_cert_to_vault(task: Task) -> Result:
 
 
 if __name__ == "__main__":
+    test_client = hvac.Client()
+
+    # Check for and if not exist, create the device-certs secret
+    test_client.secrets.kv.v2.create_or_update_secret(
+        mount_point=KV_MOUNT_POINT,
+        path=KV_PATH,
+        secret={"test":"test"}
+    )
     nr = InitNornir(config_file="config.yaml")
     generate_certs_to_vault = nr.run(task=generate_cert_to_vault)
     print_result(generate_certs_to_vault)
