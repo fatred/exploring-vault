@@ -46,6 +46,10 @@ path "network-automation/+/device-certs" {
 path "auth/token/create" {  
   capabilities = ["create", "update", "sudo"]  
 }
+# Work with pki secrets engine
+path "pki*" {
+  capabilities = [ "create", "read", "update", "delete", "list", "sudo", "patch" ]
+}
 EOT
 }
 
@@ -90,10 +94,3 @@ path "user-creds/+/ubaumann" {
 EOT
 }
 
-###
-# uncomment the below into the "pki-admin-vault-policy" between line 48/49
-## Work with pki secrets engine
-#path "pki*" {
-#  capabilities = [ "create", "read", "update", "delete", "list", "sudo", "patch" ]
-#}
-###
