@@ -62,7 +62,7 @@ sys_netguest = nokia.SysRoleItem(name="netguest", rule=[global_read])
 # build user
 jhoward_user = _build_aaa_user_item(
     username="jhoward",
-    pwdhash="$ar2$X0t/iUPPOgY=$0OqEK68HOWPQXDe81uQ6Vw==",
+    pwdhash="$ar2$jjGUfyNoQbLP500l1ksXDA==$bkBhxduEI2T1pvCefNqOsA==",
     role="netadmin",
     ssh_key="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0e1FGLpTw4egTHzXWjRIjyL6BmZhIkE/Kwdo2Fe7wAA4MN7GBj2s/dXFQNYynI4ZyU6vIrkMXUtVjucMUy3Wft3WP5DPrmLVPlHjBmcBJgUuGlzGGiTUqPojrstUNSiT92plqEoYTttQjtaNQfMSj1OH9bp1MT9AX8V4f8nGW4nHEbge24Qwyq0KyY0hTkhJlfLoeqMqXTuVF/xJ9qE67p/odTB9DQiFeWsG1KJs6EJdaFnbnPB4E2UMw/LTry2uavgbaZX+vtORMeebXU8EUFh+ZeigFaziq1fedc1GGgwIEKLs3fQ13yT3Rr19Kgr0g0nG8u4d24tQdtBnC/E1P",
 )
