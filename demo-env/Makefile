@@ -16,6 +16,7 @@ deploy:
 #	sed -i '/linux:/!b;n;s/vars:/vars: {}/' ansible-inventory.yml
 
 preflight-checks:
+	python3 test-inventory.py
 	python3 query_gnmi_cert.py clab-demo-env-spine1
 	python3 query_gnmi_cert.py clab-demo-env-leaf1
 	python3 query_gnmi_cert.py clab-demo-env-leaf2
