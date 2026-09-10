@@ -17,7 +17,7 @@ MarkupSafe==3.0.2
 mdurl==0.1.2
 mypy-extensions==1.0.0
 nats-py==2.9.0
-nornir==3.4.1
+nornir==3.6.0
 nornir-ansible==2023.12.28
 nornir-pygnmi==0.2.0
 nornir-utils==0.2.0
